@@ -5,6 +5,7 @@ import { HomeIcon, HomeFillIcon, NewIcon, NewFillIcon, SearchIcon, SearchFillIco
 import { usePathname } from "next/navigation";
 import ColorButton from "./ui/buttons/ColorButton";
 import { useSession, signIn, signOut } from "next-auth/react"
+import Avatar from './Avatar';
 
 
 const menu = [
@@ -28,7 +29,7 @@ const menu = [
 export default function Navbar(){
     const pathName = usePathname();
     const { data: session } = useSession(); // data를 session이란 이름으로 변경함
-
+    const user = session?.user; // user 정보. name, email, username, avatar image, expires..
 
     return <div className='flex justify-between items-center px-6'>
         <Link href='/'>
@@ -43,12 +44,21 @@ export default function Navbar(){
                         </Link>
                     </li>)
                 }
+                {user && (
+                    <li>
+                        <Link href={`/user/${user.username}`}>
+                            <Avatar image={user.image} />
+                        </Link>
+                    </li>
+                )}
+                <li>
                 {
                     session? (<ColorButton text='Sign out' onClick={() => signOut()} />
                     ) : (
                         <ColorButton text='Sign in' onClick={() => signIn()} />
                     )
                 }
+                </li>
             </ul>
         </nav>
     </div>
