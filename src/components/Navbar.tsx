@@ -4,6 +4,8 @@ import Link from "next/link";
 import { HomeIcon, HomeFillIcon, NewIcon, NewFillIcon, SearchIcon, SearchFillIcon } from "./ui/icons";
 import { usePathname } from "next/navigation";
 import ColorButton from "./ui/buttons/ColorButton";
+import { useSession, signIn, signOut } from "next-auth/react"
+
 
 const menu = [
     {
@@ -25,7 +27,9 @@ const menu = [
 
 export default function Navbar(){
     const pathName = usePathname();
-    console.log(pathName);
+    const { data: session } = useSession(); // data를 session이란 이름으로 변경함
+
+
     return <div className='flex justify-between items-center px-6'>
         <Link href='/'>
             <h1 className='text-3xl font-bold'>Instagram</h1>
@@ -39,7 +43,12 @@ export default function Navbar(){
                         </Link>
                     </li>)
                 }
-                <ColorButton text='Sign in' onClick={() => {}} />
+                {
+                    session? (<ColorButton text='Sign out' onClick={() => signOut()} />
+                    ) : (
+                        <ColorButton text='Sign in' onClick={() => signIn()} />
+                    )
+                }
             </ul>
         </nav>
     </div>
