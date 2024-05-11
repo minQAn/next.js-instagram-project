@@ -1,3 +1,4 @@
+import { addUser } from '@/service/user';
 import NextAuth, { NextAuthOptions } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 
@@ -13,8 +14,21 @@ const authOptions: NextAuthOptions = {
     // ...add more providers here
     ],
     callbacks: {     
+        // 참고: https://www.sanity.io/docs/js-client#creating-if-not-already-present
+        async signIn({ user: {id, name, email, image} }) {
+            // console.log('* user: ', user);
+            
+            // email이 없으면 잘못된 정보이므로
+            if(!email) {
+                return false;
+            }
+            // key: username 추가해서 가공
+            addUser({id, name: name || '', email, image, username: email.split('@')[0] || ''}); 
+
+            return true;
+        },
         async session({ session }) {
-            console.log(session);
+            console.log('* session:', session);
             const user = session?.user;
             if(user) {
                 session.user = {
