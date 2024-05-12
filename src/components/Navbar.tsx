@@ -28,7 +28,7 @@ const menu = [
 
 export default function Navbar(){
     const pathName = usePathname();
-    const { data: session } = useSession(); // data를 session이란 이름으로 변경함
+    const { data: session } = useSession(); // client측에서 로그인 정보 가져올 때 사용. data를 session이란 이름으로 변경함
     const user = session?.user; // user 정보. name, email, username, avatar image, expires..
 
     return <div className='flex justify-between items-center px-6'>
@@ -47,7 +47,7 @@ export default function Navbar(){
                 {user && (
                     <li>
                         <Link href={`/user/${user.username}`}>
-                            <Avatar image={user.image} />
+                            <Avatar image={user.image} size='small' highlight />
                         </Link>
                     </li>
                 )}
