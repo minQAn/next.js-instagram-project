@@ -30,6 +30,7 @@ Navar에있는 Avatar Component 재사용
 * fetch가아닌 <a href="https://swr.vercel.app/">**SWR**</a>(Stale-While-Revalidate)을 사용. (Vercel에서 만듬)
 * Sanity의 <a href="https://www.sanity.io/docs/groq">GROQ</a>를 사용하여 getUserByUsername 함수 구현
 * Loding Spinner 구현
+* 원활한 가로 스크롤을 위해 [react-multi-carousel](https://www.npmjs.com/package/react-multi-carousel) 라이브러리 사용
 
 참고 자료 링크 </br>
 https://swr.vercel.app/ </br>
