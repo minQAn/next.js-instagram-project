@@ -5,6 +5,8 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from './api/auth/[...nextauth]/route';
 import { redirect } from 'next/navigation';
 
+// HomePage는 SSR: 사용자로부터 요청이 왔을때 렌더링.
+// 이유: session에 로그인한 사용자 정보를 확인해야 함으로
 export default async function HomePage() {
   const session = await getServerSession(authOptions);
   const user = session?.user;
@@ -13,7 +15,6 @@ export default async function HomePage() {
   if(!user) {
     redirect('/auth/signin');
   }
-
 
   return <section className='flex flex-col md:flex-row max-w-[850px] p-4'>
     <div className='w-full basis-3/4'>

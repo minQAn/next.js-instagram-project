@@ -59,7 +59,7 @@ export default {
             authorUsername: 'author.username',
             media: 'photo',
         },
-        prepare(selection) {
+        prepare(selection) { /* customize하여 sanity studio에서 보여주고 싶은 데이터 값을 설정 */
             const { title, authorName, authorUsername, media } = selection;
             return {
                 title,

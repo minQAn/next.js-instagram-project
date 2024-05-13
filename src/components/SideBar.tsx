@@ -5,7 +5,7 @@ type Props = {
     user: User;
 }
 
-export default function SideBar({ user: {name, username, email, image} }: Props){
+export default function SideBar({ user: {name, username, image} }: Props){
     return <>
         <div className='flex items-center'>
             {image && <Avatar image={image} />}

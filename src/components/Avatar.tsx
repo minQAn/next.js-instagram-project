@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 type Props = {
     image?: string | null; 
     size?: 'small' | 'normal';
@@ -8,6 +6,7 @@ type Props = {
 
 export default function Avatar({ image, size = 'normal', highlight = false }: Props){
     return <div className={getContainerStyle(size, highlight)}>
+        {/* 여러 외부 provider(ex: google, kakao, naver)에서 오기때문에 도메인 지정이 곤란하므로 nextjs의 Image컴포넌트를 사용하지 않았음 */}
         <img 
             className={`bg-white rounded-full ${getImageSizeStyle(size)}`}
             alt='user profile' 
