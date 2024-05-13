@@ -16,22 +16,35 @@ import Avatar from './Avatar';
 export default function FollowingBar(){
     const {data, isLoading, error} = useSWR<DetailUser>('/api/me');
     //console.log(data?.following); // type을 정의했기 때문에 받아오는 data의 타입을 알 수 있음
-    const followingUsers = data?.following;
+    // const followingUsers = data?.following;
+    // const followingUsers = undefined;
+    const followingUsers = data?.following && [
+        ...data?.following, 
+        ...data?.followers, 
+        ...data?.following,
+        ...data?.followers,
+        ...data?.following,
+    ];
 
-    return <section>
+    
+    return <section className='w-full flex justify-center items-center p-4 shadow-sm shadow-neutral-300 mb-4 rounded-lg min-h-[80px] overflow-x-auto'>
         {isLoading ? (<PacmanLoader size={25} color='cyan' />
         ) : (
             (!followingUsers || followingUsers.length === 0) && <p>{`You don't have following users`}</p>
         )}
         {
-            followingUsers && followingUsers.length > 0 && <ul>
-                {followingUsers.map(({image, username}) => <li key={username}>
-                    <Link href={`/user/${username}`}>
-                        <Avatar image={image} highlight />
-                        <p>{username}</p>
-                    </Link>
-                </li>)}
-            </ul>
-        }
+            followingUsers && followingUsers.length > 0 && (
+                <ul className='w-full flex gap-2'>
+                    {followingUsers.map(({image, username}, index) => <li key={index}>
+                        <Link 
+                            className='flex flex-col items-center w-20'
+                            href={`/user/${username}`}
+                            >
+                            <Avatar image={image} highlight />
+                            <p className='w-full text-sm text-center text-ellipsis overflow-hidden'>{username}</p>
+                        </Link>
+                    </li>)}
+                </ul>
+        )}
     </section>;
 }
