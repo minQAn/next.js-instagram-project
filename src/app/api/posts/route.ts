@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { authOptions } from '../auth/[...nextauth]/route';
 import { getServerSession } from 'next-auth';
-import { getUserByUsername } from '@/service/user';
+import { getFollowingPostsOf } from '@/service/posts';
 
 // GROQ 사용 https://www.sanity.io/docs/groq
 export async function GET(){
@@ -12,6 +12,6 @@ export async function GET(){
         return new Response('Authentication Error', { status: 401 }); // 그런 사용자가 없음
     }
 
-    return getUserByUsername(user.username)
+    return getFollowingPostsOf(user.username)
         .then(data => NextResponse.json(data));
 }

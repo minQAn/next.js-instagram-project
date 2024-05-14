@@ -16,7 +16,7 @@ import ScrollableBar from './ui/ScrollableBar';
 // Loading Spinner: https://www.davidhu.io/react-spinners/ 
 export default function FollowingBar(){
     const {data, isLoading, error} = useSWR<DetailUser>('/api/me');
-    //console.log(data?.following); // type을 정의했기 때문에 받아오는 data의 타입을 알 수 있음
+    // console.log(data?.following); // type을 정의했기 때문에 받아오는 data의 타입을 알 수 있음
     const followingUsers = data?.following;
     // const followingUsers = undefined;
     // const followingUsers = data?.following && [
@@ -28,14 +28,14 @@ export default function FollowingBar(){
     // ];
     
     return <section className='w-full flex justify-center items-center p-4 shadow-sm shadow-neutral-300 mb-4 rounded-lg min-h-[80px] overflow-x-auto'>
-        {isLoading ? (<PropagateLoader size={25} color='cyan' />
+        {isLoading ? (<PropagateLoader size={12} color='cyan' />
         ) : (
             (!followingUsers || followingUsers.length === 0) && <p>{`You don't have following users`}</p>
         )}
         {
             followingUsers && followingUsers.length > 0 && (                
                 <ScrollableBar>
-                    {followingUsers.map(({image, username}, index) => 
+                    {followingUsers.map(({image, username}) => 
                         <Link 
                             key={username}
                             className='flex flex-col items-center w-20'

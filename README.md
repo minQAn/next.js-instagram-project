@@ -39,3 +39,6 @@ https://www.sanity.io/docs/groq </br>
 https://www.davidhu.io/react-spinners/ 
 
 
+## PostList
+* Sanity에서 image가져올 때 [참고](https://www.sanity.io/docs/image-url)
+* [timeago.js](https://github.com/hustcc/timeago.js/blob/master/README.md) 사용 
