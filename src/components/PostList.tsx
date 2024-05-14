@@ -10,17 +10,17 @@ import PostListCard from './PostListCard';
 // https://www.sanity.io/docs/image-url
 export default function PostList(){
     const { data: posts, isLoading, error } = useSWR<SimplePost[]>('/api/posts');
-    console.log(posts);
+    
     return <section>
         {isLoading && (
-            <div>
-                <PuffLoader color='cyan' />
+            <div className='flex justify-center mt-32'>
+                <PuffLoader color='cyan' size={80} />
             </div>
         )}
         {posts && (
             <ul>
                 {posts && posts.map(post => (
-                    <li key={post.id}>
+                    <li key={post.id} className='mb-4'>
                         <PostListCard post={post} />
                     </li>)
                 )}
