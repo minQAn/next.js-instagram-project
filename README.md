@@ -40,5 +40,6 @@ https://www.davidhu.io/react-spinners/
 
 
 ## PostList
-* Sanity에서 image가져올 때 [참고](https://www.sanity.io/docs/image-url)
+* Sanity에서 image가져올 때 [@sanity/image-url](https://www.sanity.io/docs/image-url) 사용 
+    * -> 외부 url을 사용할 때 최적화 해서 가져오는 것이 가능하게 함.
 * [timeago.js](https://github.com/hustcc/timeago.js/blob/master/README.md) 사용 
