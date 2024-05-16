@@ -53,3 +53,4 @@ https://www.davidhu.io/react-spinners/
 * DOM요소에 의미상으로 좀더 맞게 구현하기 위해 React에서 제공하는 **Portals** 사용 [참고1](https://legacy.reactjs.org/docs/portals.html), [참고2](https://react.dev/reference/react-dom/createPortal)
     * 장점: Props의 최하단 구조에 있는 컴포넌트 일지라도 body에 있는 div에 연결만 해주면 팝업처럼 사용이 가능해진다
 * body의 제일 마지막에 ModalPortal component를 생성
+* post 데이터에는 comments를 갯수만 props로 SimplePost타입으로 받고 있는데 PostDetail 컴포넌트에서는 comments의 모든 정보를 가져와야 함으로 useSWR로 id를 함께 api로 요청하여 데이터를 다시 받아옴
