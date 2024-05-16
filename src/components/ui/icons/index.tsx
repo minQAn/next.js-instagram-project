@@ -7,3 +7,4 @@ export { default as SearchFillIcon } from './SearchFillIcon';
 export { default as BookmarkIcon } from './BookmarkIcon';
 export { default as HeartIcon } from './HeartIcon';
 export { default as SmileIcon } from './SmileIcon';
+export { default as CgClose } from './CloseIcon';

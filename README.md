@@ -44,3 +44,12 @@ https://www.davidhu.io/react-spinners/
     * -> 외부 url을 사용할 때 최적화 해서 가져오는 것이 가능하게 함.
 * [timeago.js](https://github.com/hustcc/timeago.js/blob/master/README.md) 사용 
 * PostListCard component로 구현
+    * priority를 처음 이미지 2개를 우선으로 보여주고 나머지는 스크롤링이 되어 컨텐츠 위치에 와야지 보이게 된다.
+* PuffLoader에 LazyLoading을 구현.
+* PostList 목록에서 처음과 두번째 이미지 까지만 priority를 설정함
+
+
+## PostDetail 구현 (Modal)
+* DOM요소에 의미상으로 좀더 맞게 구현하기 위해 React에서 제공하는 **Portals** 사용 [참고1](https://legacy.reactjs.org/docs/portals.html), [참고2](https://react.dev/reference/react-dom/createPortal)
+    * 장점: Props의 최하단 구조에 있는 컴포넌트 일지라도 body에 있는 div에 연결만 해주면 팝업처럼 사용이 가능해진다
+* body의 제일 마지막에 ModalPortal component를 생성

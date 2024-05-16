@@ -22,7 +22,7 @@ export default function PostList(){
             <ul>
                 {posts && posts.map((post, index) => (
                     <li key={post.id} className='mb-4'>
-                        <PostListCard post={post} priority={index < 2} />
+                        <PostListCard post={post} priority={index < 2} /> {/* 첫번째와 두번째 이미지만 true로 줘서 priority를 설정 */}
                     </li>)
                 )}
             </ul>

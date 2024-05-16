@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 const PuffLoader = dynamic(
     () => import('react-spinners').then(lib => lib.PuffLoader),
     {
-        ssr: false,
+        ssr: false, // 서버에서 미리 렌더링하지 말라는 뜻
     }
 )
 
