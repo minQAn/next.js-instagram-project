@@ -14,12 +14,12 @@ type Props = {
 // searchParams: Next.js의 기능이며 callbackUrl은 NextAuth에서 정한 convention임
 // https://medium.com/@sungbeenissungbeen/next-js-%ED%98%84%EC%9E%AC-%ED%8E%98%EC%9D%B4%EC%A7%80-url-search-params%EC%97%90-%EC%A0%91%EA%B7%BC%ED%95%98%EA%B8%B0-fc7514d75eb8
 export default async function SignInPage({ searchParams: { callbackUrl }}: Props){
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions); // 서버 상에서 로그인 정보를 가져올 때 사용
     
     if(session) {
         redirect('/');
     }
-
+    
     const providers = (await getProviders()) ?? {}; // becuase <Record> could be null
 
     return (
