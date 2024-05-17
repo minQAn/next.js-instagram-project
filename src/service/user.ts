@@ -1,3 +1,4 @@
+import { ProfileUser } from '@/model/user';
 import { client } from './sanity';
 
 type OAuthUser = {
@@ -38,9 +39,13 @@ export async function getUserByUsername(username: string) {
 }
 
 // for searching user
-export async function searchUsers(keyword?: string) {
+export async function searchUsers(keyword?: string | null) {
+    /*
+        ? `&& (name match "*${keyword}*") || (username match "*${keyword}*")`
+        ㄴ위와같이하면 r 로하면 레이첼과 무람다 등 r이들어간 유저가 다뜹니다. 이렇게 정규표현식도 가능하더군요
+    */
     const query = keyword 
-        ? `&& (name match "${keyword}") || (username match "${keyword}")`
+        ? `&& (name match "*${keyword}*") || (username match "*${keyword}")`
         : '';
 
     return client.fetch(`
@@ -49,5 +54,11 @@ export async function searchUsers(keyword?: string) {
             "following": count(following),
             "followers": count(followers),
         }
-    `);
+    `).then(users => 
+        users.map((user: ProfileUser) => ({
+            ...user,
+            following: user.following ?? 0,
+            followers: user.followers ?? 0,
+        }))
+    )
 }

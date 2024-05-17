@@ -54,3 +54,21 @@ https://www.davidhu.io/react-spinners/
     * 장점: Props의 최하단 구조에 있는 컴포넌트 일지라도 body에 있는 div에 연결만 해주면 팝업처럼 사용이 가능해진다
 * body의 제일 마지막에 ModalPortal component를 생성
 * post 데이터에는 comments를 갯수만 props로 SimplePost타입으로 받고 있는데 PostDetail 컴포넌트에서는 comments의 모든 정보를 가져와야 함으로 useSWR로 id를 함께 api로 요청하여 데이터를 다시 받아옴
+
+## UserSearch 
+* useSWR을 사용하였기 때문에 UserSearch의 keyword가 변경될 때마다 데이터 요청을 보냄
+* GROQ query에 정규식 사용가능하며 검색하려는 key 양옆에 * 를 붙이면 해당 keyword가 포함되는 모든 데이터를 검색함
+```tsx
+const query = keyword 
+        ? `&& (name match "*${keyword}*") || (username match "*${keyword}")`
+        : '';
+
+    return client.fetch(`
+        *[_type == "user" ${query}]{
+            ...,
+            "following": count(following),
+            "followers": count(followers),
+        }
+    `)
+```
+
