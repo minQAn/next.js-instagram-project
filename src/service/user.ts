@@ -1,4 +1,4 @@
-import { ProfileUser } from '@/model/user';
+import { SearchUser } from '@/model/user';
 import { client } from './sanity';
 
 type OAuthUser = {
@@ -37,7 +37,7 @@ export async function getUserByUsername(username: string) {
         }`
     )
 }
-
+ 
 // for searching user
 export async function searchUsers(keyword?: string | null) {
     /*
@@ -55,10 +55,31 @@ export async function searchUsers(keyword?: string | null) {
             "followers": count(followers),
         }
     `).then(users => 
-        users.map((user: ProfileUser) => ({
+        users.map((user: SearchUser) => ({
             ...user,
             following: user.following ?? 0,
             followers: user.followers ?? 0,
         }))
     )
+}
+
+export async function getUserForProfile(username: string) {
+    return client.fetch(`
+            *[_type == "user" && username == "${username}"][0]{
+                ...,
+                "id":_id,
+                "following": count(following),
+                "followers": count(followers),
+                "posts": count(*[_type == "post" && author->username == "${username}"])
+            }
+        `).then(user => {
+            if(!user) return undefined; //유저가 없는 경우 이렇게 해줘야 컴포넌트에서 요청시 에러 안남
+            
+            return {
+                ...user, 
+                following: user.following ?? 0,
+                followers: user.followers ?? 0,
+                posts: user.pots ?? 0,
+            }
+        });
 }

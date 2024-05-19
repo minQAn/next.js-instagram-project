@@ -1,10 +1,10 @@
-import { User } from '@/model/user';
+import { AuthUser } from '@/model/user';
 // import { DefaultSession } from 'next-auth';
 
 // username이란건 없어서 타입을 추가로 줌
 declare module 'next-auth' {
     interface Session {
-        user: User;
+        user: AuthUser;
 
         // user: {
         //     username: string;            

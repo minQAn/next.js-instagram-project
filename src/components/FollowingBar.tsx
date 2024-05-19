@@ -1,6 +1,6 @@
 'use client';
 
-import { DetailUser } from '@/model/user';
+import { HomeUser } from '@/model/user';
 import Link from 'next/link';
 import { PropagateLoader } from 'react-spinners';
 import useSWR from 'swr';
@@ -15,7 +15,7 @@ import ScrollableBar from './ui/ScrollableBar';
 
 // Loading Spinner: https://www.davidhu.io/react-spinners/ 
 export default function FollowingBar(){
-    const {data, isLoading, error} = useSWR<DetailUser>('/api/me');
+    const {data, isLoading, error} = useSWR<HomeUser>('/api/me');
     // console.log(data?.following); // type을 정의했기 때문에 받아오는 data의 타입을 알 수 있음
     // const followingUsers = data?.following;
     // const followingUsers = undefined;

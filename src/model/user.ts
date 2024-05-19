@@ -1,4 +1,4 @@
-export type User = {
+export type AuthUser = {
     name: string;
     username: string;
     email: string;
@@ -6,15 +6,19 @@ export type User = {
 };
 
 // GROQ 에서 Followings와 Followers의 정보는 username & image만 가져오기로 정의하였기 때문
-export type SimpleUser = Pick<User, 'username' | 'image'>;
+export type SimpleUser = Pick<AuthUser, 'username' | 'image'>;
 
-export type DetailUser = User & {
+export type HomeUser = AuthUser & {
     following: SimpleUser[]; 
     followers: SimpleUser[];
     bookmarks: string[];
 }
 
-export type ProfileUser = User & {
+export type SearchUser = AuthUser & {
     following: number;
     followers: number;
+}
+
+export type ProfileUser = SearchUser & {
+    posts: number;
 }

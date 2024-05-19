@@ -78,6 +78,8 @@ const query = keyword
     * useDebounce 동작원리: setTimeout으로 delay함. 또한 delay가 끝나기도 전에 다른 요청이 오면 기존의 요청은 clearTimeout으로 취소하게 되어있음. 그러므로 제일 마지막에 설정한 타임아웃이 useState값에 설정이되며 실행됨
 * vs [Throttle](https://redd.one/blog/debounce-vs-throttle)
     * **의미: Debounce와는 조금 다르게 이벤트가 지속적으로 발생하면 duration으로 일정한 간격으로 끊어서 처리해줌**
+
     
-    
+## UserProfile
+* getUserForProfile 함수 참고
 

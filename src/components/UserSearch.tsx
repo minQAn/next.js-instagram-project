@@ -1,6 +1,6 @@
 'use client';
 
-import { ProfileUser } from '@/model/user';
+import { SearchUser } from '@/model/user';
 import { FormEvent, useState } from 'react';
 import { PuffLoader } from 'react-spinners';
 import useSWR from 'swr';
@@ -15,7 +15,7 @@ export default function UserSearch(){
     // keyword가 변경될 때마다 useSWR에서 데이터 요청을 보냄
     const [keyword, setKeyword] = useState('');
     const debouncedKeyword = useDebounce(keyword);
-    const { data: users, isLoading, error } = useSWR<ProfileUser[]>(`/api/search/${debouncedKeyword}`); // Debounced된 keyword가 변할때마다 네트워크 요청이 가도록 최적화
+    const { data: users, isLoading, error } = useSWR<SearchUser[]>(`/api/search/${debouncedKeyword}`); // Debounced된 keyword가 변할때마다 네트워크 요청이 가도록 최적화
 
     const onSubmit = (e: FormEvent) => {
         e.preventDefault();        
