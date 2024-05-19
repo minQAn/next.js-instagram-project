@@ -71,4 +71,13 @@ const query = keyword
         }
     `)
 ```
+* ⚠️ [Debounce](https://github.com/vercel/swr/issues/110) 적용 
+    * **의미: 이벤트가 발생하는 동안은 기다렸다가 잠잠해지면 그때 처리하도록 하는 것**
+    * 현재 UserSearch 검색의 문제점: 검색창에 keyword를 입력하는 순간마다 백엔드에 네트워크 요청이 되고 있음(과부하 문제 발생)
+    * 해결 방안: 입력 혹은 삭제 도중에는 네트워크 요청을 안하고, 입력이나 삭제가 끝나면 요청하도록
+    * useDebounce 동작원리: setTimeout으로 delay함. 또한 delay가 끝나기도 전에 다른 요청이 오면 기존의 요청은 clearTimeout으로 취소하게 되어있음. 그러므로 제일 마지막에 설정한 타임아웃이 useState값에 설정이되며 실행됨
+* vs [Throttle](https://redd.one/blog/debounce-vs-throttle)
+    * **의미: Debounce와는 조금 다르게 이벤트가 지속적으로 발생하면 duration으로 일정한 간격으로 끊어서 처리해줌**
+    
+    
 
