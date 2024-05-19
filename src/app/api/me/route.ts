@@ -3,6 +3,7 @@ import { authOptions } from '../auth/[...nextauth]/route';
 import { getServerSession } from 'next-auth';
 import { getUserByUsername } from '@/service/user';
 
+// 현재 로그인한 사용자의 정보
 // GROQ 사용 https://www.sanity.io/docs/groq
 export async function GET(){
     const session = await getServerSession(authOptions);

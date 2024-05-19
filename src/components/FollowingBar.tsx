@@ -17,15 +17,15 @@ import ScrollableBar from './ui/ScrollableBar';
 export default function FollowingBar(){
     const {data, isLoading, error} = useSWR<HomeUser>('/api/me');
     // console.log(data?.following); // type을 정의했기 때문에 받아오는 data의 타입을 알 수 있음
-    // const followingUsers = data?.following;
+    const followingUsers = data?.following;
     // const followingUsers = undefined;
-    const followingUsers = data?.following && [
-        ...data?.following, 
-        ...data?.followers, 
-        ...data?.following,
-        ...data?.followers,
-        ...data?.following,
-    ];
+    // const followingUsers = data?.following && [
+    //     ...data?.following, 
+    //     ...data?.followers, 
+    //     ...data?.following,
+    //     ...data?.followers,
+    //     ...data?.following,
+    // ];
     
     return <section className='w-full flex justify-center items-center p-4 shadow-sm shadow-neutral-300 mb-4 rounded-lg min-h-[80px] overflow-x-auto relative z-0'>
         {isLoading ? (<PropagateLoader size={12} color='cyan' />
