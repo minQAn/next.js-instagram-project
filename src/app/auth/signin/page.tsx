@@ -1,5 +1,6 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import SignIn from '@/components/SignIn';
+import { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
 import { getProviders } from 'next-auth/react';
 import { redirect } from 'next/navigation';
@@ -9,6 +10,13 @@ type Props = {
         callbackUrl: string; // 로그인 후 원래 있던 경로로 돌아가기 위함
     }
 }
+
+// Metadata
+export const metadata: Metadata = {
+    title: 'Signin',
+    description: 'Signup or Login to Instagram',
+}
+
 
 // Sever Component 
 // searchParams: Next.js의 기능이며 callbackUrl은 NextAuth에서 정한 convention임

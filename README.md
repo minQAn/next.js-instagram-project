@@ -86,3 +86,10 @@ const query = keyword
 ## UserPosts
 * posts, liked, saved 세가지 탭으로 구성
 * 이에 따른 세가지 query를 posts 서비스에 작성
+* image-url + Image 컴포넌트로 최적화
+* Home에서 작성한 post detail페이지의 Modal 재사용
+* priority 상위 6개의 이미지에만 적용하여 최적화
+* Grid 사용
+
+## SEO를 위해 layout에서 메타데이터 작성
+
