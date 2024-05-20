@@ -44,3 +44,42 @@ export async function getPost(id: string) {
         }`
     ).then(post => ({...post, image: urlFor(post.image)}));
 }
+
+// ----------------------------------------------------
+// in UserPosts
+
+export async function getPostsOf(username: string) {
+    return client.fetch(`
+        *[_type == "post" && author->username == "${username}"]
+        | order(_createdAt desc){
+            ${simplePostProjection}
+        }
+    `).then(mapPosts); // posts => mapPosts(posts)
+}
+
+// Posts에 누가 좋아요를 눌렀는지 정보를 가져오기 위함
+export async function getLikedPostsOf(username: string) {
+    return client.fetch(`
+        *[_type == "post" && "${username}" in likes[]->username] 
+        | order(_createdAt desc){
+            ${simplePostProjection}
+        }
+    `).then(mapPosts); // posts => mapPosts(posts)
+}
+
+// Join Query
+export async function getSavedPostsOf(username: string) {
+    return client.fetch(`
+        *[_type == "post" && _id in *[_type == "user" && username=="${username}"].bookmarks[]._ref]
+        | order(_createdAt desc){
+            ${simplePostProjection}
+        }
+    `).then(mapPosts);
+}
+
+function mapPosts(posts: SimplePost[]) {
+    return posts.map((post: SimplePost) => ({
+        ...post,
+        image: urlFor(post.image),
+    }));
+}

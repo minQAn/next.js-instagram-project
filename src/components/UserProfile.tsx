@@ -12,7 +12,8 @@ export default function UserProfile({ user }: Props){
         {title: 'posts', data: posts},
         {title: 'followers', data: followers},
         {title: 'following', data: following},
-    ]
+    ];
+
     return <section className='w-full flex flex-col md:flex-row justify-center items-center p-12 border-b border-neutral-300'> 
         <Avatar image={image} highlight size='xlarge' />
         <div className='md:ml-10 basis-1/3'>

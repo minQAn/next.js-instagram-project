@@ -30,7 +30,7 @@ export async function getUserByUsername(username: string) {
     return client.fetch(
         `*[_type == "user" && username == "${username}"][0]{
             ...,
-            "id": _id,
+            "id":_id,
             following[]->{username,image},
             followers[]->{username,image},
             "bookmarks":bookmarks[]->_id
@@ -64,22 +64,24 @@ export async function searchUsers(keyword?: string | null) {
 }
 
 export async function getUserForProfile(username: string) {
+    // 주의사항: join에서 posts부분 count(*[_type="post"])까지 띄어쓰기 있으면 안됨!!!
     return client.fetch(`
             *[_type == "user" && username == "${username}"][0]{
                 ...,
                 "id":_id,
                 "following": count(following),
                 "followers": count(followers),
-                "posts": count(*[_type == "post" && author->username == "${username}"])
+                "posts": count(*[_type=="post" && author->username == "${username}"]) 
             }
         `).then(user => {
-            if(!user) return undefined; //유저가 없는 경우 이렇게 해줘야 컴포넌트에서 요청시 에러 안남
+            console.log(user);
+            if(!user) {return undefined;} //유저가 없는 경우 이렇게 해줘야 컴포넌트에서 요청시 에러 안남
             
             return {
                 ...user, 
                 following: user.following ?? 0,
                 followers: user.followers ?? 0,
-                posts: user.pots ?? 0,
+                posts: user.posts ?? 0,
             }
         });
 }
