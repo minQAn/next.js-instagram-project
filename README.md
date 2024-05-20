@@ -83,3 +83,6 @@ const query = keyword
 ## UserProfile
 * getUserForProfile 함수 참고
 
+## UserPosts
+* posts, liked, saved 세가지 탭으로 구성
+* 이에 따른 세가지 query를 posts 서비스에 작성

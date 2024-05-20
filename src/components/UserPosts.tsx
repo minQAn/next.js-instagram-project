@@ -23,13 +23,17 @@ export default function UserPosts({ user: { username }}: Props){
 
     const [query, setQuery] = useState(tabs[0].type);
    
-    
     return <section>
-        <ul>
-            {tabs.map(({type, icon}) => <li key={type} onClick={() => setQuery(type)}>
-                <button>{icon}</button>
-                <span>{type}</span>
-            </li>)}
+        <ul className='flex justify-center uppercase'> 
+            {tabs.map(({type, icon}) => (
+                <li className={`mx-12 p-4 cursor-pointer border-black ${type === query && 'font-bold border-t'} `}
+                    key={type} 
+                    onClick={() => setQuery(type)}
+                >
+                    <button className='scale-150 md:scale-100'>{icon}</button>
+                    <span className='hidden md:inline ml-1'>{type}</span>
+                </li>
+            ))}
         </ul>
         <PostGrid username={username} query={query} />
     </section>;
