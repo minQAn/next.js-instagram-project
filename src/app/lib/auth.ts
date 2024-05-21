@@ -30,17 +30,24 @@ export const authOptions: NextAuthOptions = {
 
             return true;
         },
-        async session({ session }) {
+        async session({ session, token }) {
             // console.log('* session:', session);
             const user = session?.user;
             if(user) {
                 session.user = {
                     ...user,
-                    username: user.email?.split('@')[0] || '' // 1. username의 타입은 별도로 수정: /types/next-auth.d.ts에서 함 2. email의 @ 앞부분을 username으로 할당
+                    username: user.email?.split('@')[0] || '', // 1. username의 타입은 별도로 수정: /types/next-auth.d.ts에서 함 2. email의 @ 앞부분을 username으로 할당
+                    id: token.id as string,
                 }
             }
         return session;
-      },  
+      }, 
+      async jwt({token, user}) {
+        if(user) {
+            token.id = user.id;
+        }
+        return token;
+      }
     },
     // to make custome login page -> https://next-auth.js.org/configuration/pages
     pages: {
