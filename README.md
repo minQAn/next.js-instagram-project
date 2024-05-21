@@ -91,5 +91,12 @@ const query = keyword
 * priority 상위 6개의 이미지에만 적용하여 최적화
 * Grid 사용
 
-## SEO를 위해 layout에서 메타데이터 작성
+## SEO를 위해 Metadata 작성
+* /user/[username]에서는 params를 가져와야함으로 generateMetadata함수 사용
+* getUserForProfile 함수가 여러번 반복됨으로 react의 cache를 사용하여 함수로 묶음
+* authOptions은 별도로 객체로 빼었음
+* Search에서 nextjs의 fetch를 사용하지 않았기 때문에 SSG로 행동하는데 이를 강제로 서버 사이드 렌더링으로 만들기 위해 search route.ts와 page.tsx에 아래 코드 추가하여 빌드
+```tsx
+export const dynamic = 'force-dynamic';
+```
 

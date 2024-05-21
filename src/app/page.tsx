@@ -2,7 +2,7 @@ import FollowingBar from '@/components/FollowingBar';
 import PostList from '@/components/PostList';
 import SideBar from '@/components/SideBar';
 import { getServerSession } from 'next-auth';
-import { authOptions } from './api/auth/[...nextauth]/route';
+import { authOptions } from '@/app/lib/auth';
 import { redirect } from 'next/navigation';
 
 // HomePage는 SSR: 사용자로부터 요청이 왔을때 렌더링.
