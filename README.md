@@ -23,6 +23,8 @@ Sanity를 사용하여 콘텐츠를 관리하는 웹 애플리케이션을 개�
 흐름도
 Sanity Studio ↔️ Content Lake(Sanity) ↔️ Server(Backend with Next.js) ↔️ Frontend
 
+# GET part 
+
 ## Sidebar 에서는 스타일링 함수
 Navar에있는 Avatar Component 재사용
 
@@ -99,4 +101,24 @@ const query = keyword
 ```tsx
 export const dynamic = 'force-dynamic';
 ```
+
+---
+# POST part
+
+## [SWR advanced understaning](https://swr.vercel.app/docs/advanced/understanding) (for better UX)
+* SWR뜻(Stale While Revalidate): stale된 데이터를 리벨리데이션 하는 동안에 사용한다.
+    * 두번째 부터 데이터를 서버에 요청하는 동안 SWR은 기존의 staled된 데이터를 보여주고 뒤에서는 업데이트 된 내용이 있는지 서버에 체크후, 데이터가 변경된 사항이 있다면 UI에 업데이트 시켜준다는 동작원리
+* isLoading: 데이터 첫 요청시에만 true가됨. 이유는 두번 째 요청부터는 staled된 데이터를 이미 가지고 있기 때문에
+* isValidating: 이미 기존에 가지고 있는 데이터를 보여주고, true가되며 데이터가 백그라운드에서 업데이트가 되면 false로 변경함
+* Key: 내부 컴포넌트 상태에 따라서 key가 바뀌는 경우가 있음
+
+## 재사용 가능한 ToggleButton 컴포넌트 구현 for like and bookmarks 
+* [sanity client](https://www.sanity.io/docs/js-client)
+* [next-auth/configuration/callbacks](https://next-auth.js.org/configuration/callbacks)
+* [SWR Mutation](https://swr.vercel.app/docs/mutation)
+* ActionBar에서 use client 선언을 하지 않은 이유: 
+   부모 컴포넌트에서 이미 client 컴포넌트로 선언했기 때문에 그 자손 컴포넌트들 까지 모두 client 컴포넌트로 간주하기 때문 
+    PostListCard -> ActionBar
+    PostListCard -> PostDetail -> ActionBar
+    PostGridCard -> PostDetail -> ActionBar
 

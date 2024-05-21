@@ -1,5 +1,14 @@
+// 'use client';
+// 여기서 use client를 안해도 되는 이유
+// use client를 선언하면 그 자손 컴포넌트들 까지 모두 client 컴포넌트로 간주하기 때문 
+// PostListCard -> ActionBar
+// PostListCard -> PostDetail -> ActionBar
+// PostGridCard -> PostDetail -> ActionBar
+
 import { parseDate } from '@/util/date';
-import { BookmarkIcon, HeartIcon } from './ui/icons';
+import { BookmarkFillIcon, BookmarkIcon, HeartFillIcon, HeartIcon } from './ui/icons';
+import { useState } from 'react';
+import ToggleButton from './ui/buttons/ToggleButton';
 
 type Props = {
     likes: string[];
@@ -9,10 +18,13 @@ type Props = {
 }
 
 export default function ActionBar({ likes, username, text, createdAt }: Props){
+    const [liked, setLiked] = useState(false);
+    const [bookmarked, setBookmarked] = useState(false);
+
     return <>
         <div className='flex justify-between m-2 px-3'>
-            <HeartIcon />
-            <BookmarkIcon />
+            <ToggleButton toggled={liked} onToggle={setLiked} onIcon={<HeartFillIcon />} offIcon={<HeartIcon />} />
+            <ToggleButton toggled={bookmarked} onToggle={setBookmarked} onIcon={<BookmarkFillIcon />} offIcon={<BookmarkIcon />} />
         </div>
         <div className='px-4 py-1'>
             <p className='text-sm font-bold mb-2'>
