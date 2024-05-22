@@ -12,6 +12,7 @@ import ToggleButton from './ui/buttons/ToggleButton';
 import { SimplePost } from '@/model/post';
 import { useSession } from 'next-auth/react';
 import { useSWRConfig } from 'swr';
+import usePosts from '@/hooks/posts';
 
 type Props = {
     post: SimplePost;
@@ -22,15 +23,15 @@ export default function ActionBar({ post }: Props){
     const {data: session} = useSession();
     const user = session?.user;
     // const [liked, setLiked] = useState(user ? likes.includes(user.username) : false);
-    const liked = user ? likes.includes(user.username) : false;
+    const liked = user ? likes.includes(user.username) : false; // 상위 PostList에서 받아온 like정보를 실시간으로 업데이트
     const [bookmarked, setBookmarked] = useState(false);
     
-    const {mutate} = useSWRConfig();
+    // custom hook
+    const {setLike} = usePosts(); // used mutate
     const handleLike = (like: boolean) => {
-        fetch('api/likes', {
-            method: 'PUT',
-            body: JSON.stringify({ id, like })
-        }).then(() => mutate('/api/posts')); // mutate key
+        if(user) {
+            setLike(post, user.username, like);
+        }
     }
     
     return <>
