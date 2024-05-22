@@ -121,4 +121,5 @@ export const dynamic = 'force-dynamic';
     PostListCard -> ActionBar
     PostListCard -> PostDetail -> ActionBar
     PostGridCard -> PostDetail -> ActionBar
+* mutation 사용하여 /api/posts를 key로 지정하고 like의 상태가 바뀐걸 전달하여 실시간 업데이트(service/sanity.ts에 있는 useCdn:false로 지정해야 ui가 동적으로 바뀜)
 

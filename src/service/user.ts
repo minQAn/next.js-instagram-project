@@ -74,7 +74,7 @@ export async function getUserForProfile(username: string) {
                 "posts": count(*[_type=="post" && author->username == "${username}"]) 
             }
         `).then(user => {
-            console.log(user);
+            // console.log(user);
             if(!user) {return undefined;} //유저가 없는 경우 이렇게 해줘야 컴포넌트에서 요청시 에러 안남
             
             return {

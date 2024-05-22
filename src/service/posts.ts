@@ -11,7 +11,7 @@ const simplePostProjection = `
     "likes": likes[]->username,
     "text": comments[0].comment,
     "comments": count(comments),
-    "id": _id,
+    "id":_id,
     "createdAt":_createdAt,
 `;
 
@@ -21,8 +21,13 @@ export async function getFollowingPostsOf(username: string) {
         `*[_type == "post" && author->username == "${username}"
             || author._ref in *[_type == "user" && username == "${username}"].following[]._ref]
             | order(_createdAt desc){${simplePostProjection}}
-        `
-    ).then(posts => posts.map((post: SimplePost) => ({...post, image: urlFor(post.image)}))); // "image": photo 를 그냥 post.image로 덮어씀
+        `,
+        {},
+        {
+            useCdn: false, // useCdn의 값을 false로 해야 like버튼이 ui가 실시간으로 변경됨
+        }
+    ).then(mapPosts);
+    //.then(posts => posts.map((post: SimplePost) => ({...post, image: urlFor(post.image)}))); // "image": photo 를 그냥 post.image로 덮어씀
 }
 
 // for PostDetail
@@ -80,6 +85,7 @@ export async function getSavedPostsOf(username: string) {
 function mapPosts(posts: SimplePost[]) {
     return posts.map((post: SimplePost) => ({
         ...post,
+        likes: post.likes ?? [],
         image: urlFor(post.image),
     }));
 }
