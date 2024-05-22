@@ -123,3 +123,6 @@ export const dynamic = 'force-dynamic';
     PostGridCard -> PostDetail -> ActionBar
 * mutation 사용하여 /api/posts를 key로 지정하고 like의 상태가 바뀐걸 전달하여 실시간 업데이트(service/sanity.ts에 있는 useCdn:false로 지정해야 ui가 동적으로 바뀜 ->  수정: service -> posts.ts -> getFollowingPostsOf 함수에 useCdn옵션을 줬음)
 * 별도의 usePosts custom hooks 으로 리팩토링하여 데이터를 관리
+* optimistic UI update 구현
+    * 구현이유: like버튼을 누르면 바로 ui가 바뀌어야하는데 데이터가 로드되기까지 기다렸다가 바뀌는 것이 ux가 좋지 않음으로
+    * mutate 함수를 사용하지 않고 useSWR('/api/posts')의 [bound mutate](https://swr.vercel.app/docs/mutation.en-US#bound-mutate)를 사용
