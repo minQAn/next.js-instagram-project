@@ -7,19 +7,18 @@
 
 import { parseDate } from '@/util/date';
 import { BookmarkFillIcon, BookmarkIcon, HeartFillIcon, HeartIcon } from './ui/icons';
-import { useState } from 'react';
 import ToggleButton from './ui/buttons/ToggleButton';
 import { SimplePost } from '@/model/post';
-import { useSession } from 'next-auth/react';
 import usePosts from '@/hooks/posts';
 import useMe from '@/hooks/me';
 
 type Props = {
     post: SimplePost;
+    children?: React.ReactNode;
 }
 
-export default function ActionBar({ post }: Props){
-    const { id, likes, username, text, createdAt } = post;
+export default function ActionBar({ post, children }: Props){
+    const { id, likes, createdAt } = post;
     
     // const {data: session} = useSession();
     // const user = session?.user;
@@ -62,12 +61,10 @@ export default function ActionBar({ post }: Props){
             <p className='text-sm font-bold mb-2'>
                 {`${likes?.length ?? 0} ${likes?.length > 1 ? 'likes' : 'like'}`}
             </p>
-            {text && (
-                <p>
-                    <span className='font-bold mr-2'>{username}</span>
-                    {text}
-                </p> 
-            )}    
+
+            {/* PostList에서는 보여주지만 PostDetail에서는 안보여주기 때문에 */}
+            { children }  
+
             <p className='text-xs text-neutral-500 uppercase my-1'>{parseDate(createdAt)}</p>
         </div>
     </>;

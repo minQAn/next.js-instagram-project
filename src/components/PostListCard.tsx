@@ -17,7 +17,7 @@ type Props = {
 }
 
 export default function PostListCard({ post, priority = false}: Props){
-    const { username, userImage, image, text, createdAt, likes, comments } = post;
+    const { username, userImage, image, comments, text } = post;
     const [ openModal, setOpenModal ] = useState(false); // 기본적으로는 modal이 전달되지 않도록 false로 설정
 
     return (
@@ -32,8 +32,24 @@ export default function PostListCard({ post, priority = false}: Props){
                 priority={priority}
                 onClick={() => setOpenModal(true)}
             />
-            <ActionBar post={post} />
+            <ActionBar post={post}>            
+                <p>
+                    <span className='font-bold mr-2'>{username}</span>
+                    {text}
+                </p>    
+                {comments > 1 && (
+                    <button 
+                        className='font-bold my-2 text-sky-400'
+                        onClick={() => setOpenModal(true)}
+                    >
+                            {`View all ${comments} comments`}
+                    </button>)
+                }       
+            </ActionBar>
+
             <CommentForm />
+
+            {/* Modal */}
             {
                 openModal && (
                     <ModalPortal>

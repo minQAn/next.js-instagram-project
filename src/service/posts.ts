@@ -116,3 +116,19 @@ export async function dislikePost(postId: string, userId: string) {
         .unset([`likes[_ref=="${userId}"]`]) // 배열에서 likes에 있는 userId를 뺌
         .commit();
 }
+
+// for Comment
+export async function addComment(postId: string, userId: string, comment: string) {
+    return client.patch(postId) // Document ID to patch 
+        .setIfMissing({comments: []}) // 만일 likes가 없으면 빈 배열로 설정
+        .append('comments', [  // 기존에 likes가 있다면 해당 객체 아이템을 추가
+            {
+                comment,
+                author: {
+                    _ref: userId,
+                    _type: 'reference',
+                }
+            }
+        ])
+        .commit({autoGenerateArrayKeys: true});  // Perform the patch and return a promise. | authoGenerateArrayKeys 키를 자동으로 생성      
+}
