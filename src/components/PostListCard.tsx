@@ -10,6 +10,7 @@ import ModalPortal from './ui/ModalPortal';
 import PostModal from './PostModal';
 import PostDetail from './PostDetail';
 import PostUserAvatar from './PostUserAvatar';
+import usePosts from '@/hooks/posts';
 
 type Props = {
     post: SimplePost;
@@ -19,6 +20,10 @@ type Props = {
 export default function PostListCard({ post, priority = false}: Props){
     const { username, userImage, image, comments, text } = post;
     const [ openModal, setOpenModal ] = useState(false); // 기본적으로는 modal이 전달되지 않도록 false로 설정
+    const { postComment } = usePosts();
+    const handlePostComment = (comment: string) => {
+        postComment(post, comment);
+    };
 
     return (
         <article className='rounded-lg shadow-md border border-gray-200'>
@@ -47,7 +52,7 @@ export default function PostListCard({ post, priority = false}: Props){
                 }       
             </ActionBar>
 
-            <CommentForm />
+            <CommentForm onPostComment={handlePostComment}/>
 
             {/* Modal */}
             {
