@@ -85,3 +85,24 @@ export async function getUserForProfile(username: string) {
             }
         });
 }
+
+// For Bookmarks
+export async function addBookmark(userId: string, postId: string) {
+    return client
+        .patch(userId) // Document ID to patch, bookmarks는 사용자의 스키마를 업데이트 해야함 
+        .setIfMissing({ bookmarks: [] }) // 만일 likes가 없으면 빈 배열로 설정
+        .append('bookmarks', [  // 기존에 likes가 있다면 해당 객체 아이템을 추가
+            {
+                _ref: postId,
+                _type: 'reference'
+            }
+        ])
+        .commit({autoGenerateArrayKeys: true});  // Perform the patch and return a promise. | authoGenerateArrayKeys 키를 자동으로 생성      
+}
+
+export async function removeBookmark(userId: string, postId: string) {
+    return client
+        .patch(userId) //
+        .unset([`bookmarks[_ref=="${postId}"]`]) // 배열에서 bookamrks의 아이디가 요청한 postId와 동일한 것을 뺌
+        .commit();
+}
