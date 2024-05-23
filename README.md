@@ -126,5 +126,7 @@ export const dynamic = 'force-dynamic';
 * optimistic UI update 구현
     * 구현이유: like버튼을 누르면 바로 ui가 바뀌어야하는데 데이터가 로드되기까지 기다렸다가 바뀌는 것이 ux가 좋지 않음으로
     * mutate 함수를 사용하지 않고 useSWR('/api/posts')의 [bound mutate](https://swr.vercel.app/docs/mutation.en-US#bound-mutate)를 사용
-* like와 bookmark 버튼을 누르면 user 페이지에서는 데이터 적용이 안되는데 useCdn옵션과 연관이 있어 false로 변경함(추후 정확한 파악 필요)
-
+* like와 bookmark 버튼을 누르면 user 페이지에서는 데이터 적용이 안되는데 useCdn옵션과 연관이 있어 false로 변경함(추후 정확한 파악 필요 -> 확인 결과 cache를 no-cache로 설정했어야함. 아래 설명)
+* 중요 포인트!!: getLikedPostsOf와 getSavedPostsOf에 3번째 인자로 [cache: 'no-cahce'](https://nextjs.org/docs/app/building-your-application/caching)를 설정해야 User페이지에 있는 PostGrid가 실시간으로 업데이트 된다. 
+    * 설명: Next에서 자체적으로 client.fetch url에 대한 response를 캐싱에서 json파일로 revalidate 시간을 아주 길게해서 저장하고 있기 때문에.
+    * .next/cache/fetch-cache 폴더에서 json파일로 확인 가능

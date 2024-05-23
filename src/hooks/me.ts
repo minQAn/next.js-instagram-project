@@ -1,4 +1,3 @@
-import { SimplePost } from '@/model/post';
 import { HomeUser } from '@/model/user';
 import useSWR from 'swr';
 

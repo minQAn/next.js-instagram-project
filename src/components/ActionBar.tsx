@@ -36,11 +36,11 @@ export default function ActionBar({ post, children }: Props){
     // custom hook
     const handleLike = (like: boolean) => {
         user && setLike(post, user.username, like);
-    }
+    };
 
     const handleBookmark = (bookmark: boolean) => {
         user && setBookmark(id, bookmark);
-    }
+    };
     
     return <>
         <div className='flex justify-between m-2 px-3'>

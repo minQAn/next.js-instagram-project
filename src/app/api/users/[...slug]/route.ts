@@ -16,6 +16,7 @@ export async function GET(_: NextRequest, context: Context) {
     }
 
     const [username, query] = slug;
+    console.log(query);
     
     let request = getPostsOf;
     if(query === 'saved') {
