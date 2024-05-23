@@ -126,3 +126,5 @@ export const dynamic = 'force-dynamic';
 * optimistic UI update 구현
     * 구현이유: like버튼을 누르면 바로 ui가 바뀌어야하는데 데이터가 로드되기까지 기다렸다가 바뀌는 것이 ux가 좋지 않음으로
     * mutate 함수를 사용하지 않고 useSWR('/api/posts')의 [bound mutate](https://swr.vercel.app/docs/mutation.en-US#bound-mutate)를 사용
+* like와 bookmark 버튼을 누르면 user 페이지에서는 데이터 적용이 안되는데 useCdn옵션과 연관이 있어 false로 변경함(추후 정확한 파악 필요)
+

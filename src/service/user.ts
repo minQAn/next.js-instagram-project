@@ -20,7 +20,7 @@ export async function addUser({ id, email, name, username, image } : OAuthUser) 
         image,
         following: [],
         followers: [],
-        bookmarks: []
+        bookmarks: [],
     })
 }
 

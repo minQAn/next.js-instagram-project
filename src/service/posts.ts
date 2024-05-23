@@ -22,10 +22,10 @@ export async function getFollowingPostsOf(username: string) {
             || author._ref in *[_type == "user" && username == "${username}"].following[]._ref]
             | order(_createdAt desc){${simplePostProjection}}
         `,
-        {},
-        {
-            useCdn: false, // useCdn의 값을 false로 해야 like버튼이 ui가 실시간으로 변경됨
-        }
+        // {},
+        // {
+        //     useCdn: false, // useCdn의 값을 false로 해야 like버튼이 ui가 실시간으로 변경됨
+        // }
     ).then(mapPosts);
     //.then(posts => posts.map((post: SimplePost) => ({...post, image: urlFor(post.image)}))); // "image": photo 를 그냥 post.image로 덮어씀
 }
@@ -73,13 +73,19 @@ export async function getLikedPostsOf(username: string) {
 }
 
 // Join Query
+// 주의점: 조인커리 문장에서는 *[_type=="user"]에 띄어쓰기 하면 안된다
 export async function getSavedPostsOf(username: string) {
     return client.fetch(`
-        *[_type == "post" && _id in *[_type == "user" && username=="${username}"].bookmarks[]._ref]
+        *[_type == "post" && _id in *[_type=="user" && username=="${username}"].bookmarks[]._ref]
         | order(_createdAt desc){
             ${simplePostProjection}
         }
-    `).then(mapPosts);
+    `,
+    // {},
+    // {
+    //     useCdn: false, // useCdn의 값을 false로 해야 bookmark버튼 실행시 다른 컴포넌트에서(saved) ui가 실시간으로 변경됨
+    // }
+    ).then(mapPosts);
 }
 
 function mapPosts(posts: SimplePost[]) {

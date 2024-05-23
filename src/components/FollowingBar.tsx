@@ -1,11 +1,10 @@
 'use client';
 
-import { HomeUser } from '@/model/user';
 import Link from 'next/link';
 import { PropagateLoader } from 'react-spinners';
-import useSWR from 'swr';
 import Avatar from './Avatar';
 import ScrollableBar from './ui/ScrollableBar';
+import useMe from '@/hooks/me';
 
 // 1. 클라이언트 컴포넌트에서 백엔드에게 api/me 사용자의 정보를 얻어옴
 // 2. 백엔드에서는 현재 로그인된 사용자의 세션 정보를 이용해서 
@@ -15,9 +14,9 @@ import ScrollableBar from './ui/ScrollableBar';
 
 // Loading Spinner: https://www.davidhu.io/react-spinners/ 
 export default function FollowingBar(){
-    const {data, isLoading, error} = useSWR<HomeUser>('/api/me');
-    // console.log(data?.following); // type을 정의했기 때문에 받아오는 data의 타입을 알 수 있음
-    const followingUsers = data?.following;
+    const {user, isLoading, error} = useMe();
+
+    const followingUsers = user?.following;
     // const followingUsers = undefined;
     // const followingUsers = data?.following && [
     //     ...data?.following, 
