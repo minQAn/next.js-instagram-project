@@ -1,4 +1,4 @@
-import { SimplePost } from '@/model/post';
+import { Comment, SimplePost } from '@/model/post';
 import useSWR from 'swr';
 
 // to update like
@@ -40,7 +40,7 @@ export default function usePosts() {
         })
     };
 
-    const postComment = (post: SimplePost, comment: string) => {
+    const postComment = (post: SimplePost, comment: Comment) => {
         const newPost = {
             ...post, 
             comments: post.comments + 1,            
@@ -48,7 +48,7 @@ export default function usePosts() {
         const newPosts = posts?.map(p => p.id === post.id ? newPost : p);
 
         // 14-8 Revalidate 참고
-        return mutate(addComment(post.id, comment), { // bound mutate options
+        return mutate(addComment(post.id, comment.comment), { // bound mutate options
             optimisticData: newPosts,
             populateCache: false,
             revalidate: false,
