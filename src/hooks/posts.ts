@@ -1,4 +1,5 @@
 import { Comment, SimplePost } from '@/model/post';
+import { useCallback } from 'react';
 import useSWR from 'swr';
 
 // to update like
@@ -22,7 +23,7 @@ export default function usePosts() {
     const { data: posts, isLoading, error, mutate } = useSWR<SimplePost[]>('/api/posts'); // bound mutate
     // const { mutate } = useSWRConfig();
 
-    const setLike = (post: SimplePost, username: string, like: boolean) => {
+    const setLike = useCallback((post: SimplePost, username: string, like: boolean) => {
         const newPost = {
             ...post, 
             likes: like
@@ -38,9 +39,9 @@ export default function usePosts() {
             revalidate: false,
             rollbackOnError: true, // 네트워크 요청 시 잘못되면 rollback되도록 설정
         })
-    };
+    }, [posts, mutate]);
 
-    const postComment = (post: SimplePost, comment: Comment) => {
+    const postComment = useCallback((post: SimplePost, comment: Comment) => {
         const newPost = {
             ...post, 
             comments: post.comments + 1,            
@@ -54,7 +55,7 @@ export default function usePosts() {
             revalidate: false,
             rollbackOnError: true, // 네트워크 요청 시 잘못되면 rollback되도록 설정
         })
-    };
+    }, [posts, mutate]);
 
     return { posts, isLoading, error, setLike, postComment };
 }
