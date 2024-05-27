@@ -137,4 +137,7 @@ export const dynamic = 'force-dynamic';
 * Post가 업데이트 되었을 때 전체적인 포스트가 변경이 되지 않아서 사용자가 Detail화면에서 Comment를 입력했으나 전체 Home에서는 업데이트가 되지 않는 문제 발견
     * 이렇게 불가피하게 서로 연결된(바운드된) mutate로 해결할 수 없는 경우에 사용할 수 있는 것이 Global mutate 이다. (in post.ts)
     * global mutate에 '/api/posts'키를 설정함으로 써 이제 PostDetail에서 Comment트를 입력하고나면 Home에서 코멘트 갯수가 업데이트 되는 것을 확인할 수 있다
-    
+
+## Follow Button 
+* [Multiple mutations in a transaction](https://www.sanity.io/docs/php-client#multiple-mutations-in-a-transaction) 사용
+    * 사용이유: follow버튼을 누르는 순간 다수의 사용자(user와 해당 follow한 사용자)의 데이터를 바꿔야 하기 때문
