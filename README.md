@@ -154,3 +154,9 @@ export const dynamic = 'force-dynamic';
 // absolte를하고 위치값을 정하면 flex가 적용이 가능하다
 ```
 
+## User페이지에 있는 PostGrid에서 Like 버튼을 누르면 바뀌지 않는 버그
+* 현재 Home에서 보는 post list는 PostList 컴포넌트에서 관리하고 있음
+    * 여기서는 usePosts hook을 사용하여 PostListCard에 각각 보여주고 있음
+    * 원인: like를 누르면 /api/posts 라는 것을 업데이트하는데 그럼 Home에 있는 것은 전체적으로 업데이트가 되겠지만 PostGrid에서 사용하는 api key는 /api/users/${username}/${query}로 서로 다르기 때문
+    * 이를 해결하기 위해 cacheKey를 Actionbar에 있는 setLike에  전달해야하는데 Props Drilling이 지나치게 발생하기 때문에 Context를 사용한다
+    * -> UserPosts에 있는 PostGrid를 CacheKeysContext로 묶어서 키를 다르게 관리

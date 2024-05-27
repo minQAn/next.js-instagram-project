@@ -1,16 +1,10 @@
-import { SimplePost } from '@/model/post';
 import { PuffLoader } from 'react-spinners';
-import useSWR from 'swr';
 import PostGridCard from './PostGridCard';
+import usePosts from '@/hooks/posts';
 
-type Props = {
-    username: string;
-    query: string;
-}
-
-export default function PostGrid({ username, query }: Props){
-    const {data: posts, isLoading, error} = useSWR<SimplePost[]>(`/api/users/${username}/${query}`);
-    console.log(posts);
+export default function PostGrid(){
+    const {posts, isLoading} = usePosts(); // cacheKey가 달라 like크를 눌러도 반응이 없어 context로 받아옴
+    // const {data: posts, isLoading, error} = useSWR<SimplePost[]>(`/api/users/${username}/${query}`);    
     
     return <div className='w-full'>        
         {isLoading && 
