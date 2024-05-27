@@ -142,4 +142,15 @@ export const dynamic = 'force-dynamic';
 * [Multiple mutations in a transaction](https://www.sanity.io/docs/php-client#multiple-mutations-in-a-transaction) 사용
     * 사용이유: follow버튼을 누르는 순간 다수의 사용자(user와 해당 follow한 사용자)의 데이터를 바꿔야 하기 때문
 * useMe hook을 전달받으면 toggleFollow라는 함수를 전달 받을 수 있도록 추가
-* 
+* Follow Button을 눌러 데이터 업데이트 시, client componenet의 정적으로 받아온 following & followers의 숫자는 변하지 않고 있음
+    * 해결방법: [router.refresh()](https://nextjs.org/docs/app/building-your-application/caching#invalidation-1) 사용: router.refresh를 사용하여 서버상에 미리 렌더링된 페이지도 부분적으로 업데이트 가능함
+    * react에서 제공하는 [useTransition](https://react.dev/reference/react/useTransition) 사용하여 데이터가 변경이 되는 동안 spinner보여줄 수도 있음
+    * 현재 이방법은 Next에서 어떻게 처리할지 고안중임을 참고
+* CSS 팁
+```tsx
+<div className='absolute inset-0 flex justify-center items-center'> 
+</div>
+{/* inset뜻: top, right, bottom, left: 0 */}
+// absolte를하고 위치값을 정하면 flex가 적용이 가능하다
+```
+

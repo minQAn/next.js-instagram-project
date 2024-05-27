@@ -73,7 +73,12 @@ export async function getUserForProfile(username: string) {
                 "followers": count(followers),
                 "posts": count(*[_type=="post" && author->username == "${username}"]) 
             }
-        `).then(user => {
+        `,
+        {},
+        {
+            cache: 'no-store' // 이걸 해줘야 follow버튼을 눌렀을 때 UserProfile의 Following, Followers 숫자가 업데이트 됨
+        }
+        ).then(user => {
             // console.log(user);
             if(!user) {return undefined;} //유저가 없는 경우 이렇게 해줘야 컴포넌트에서 요청시 에러 안남
             
