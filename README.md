@@ -141,3 +141,5 @@ export const dynamic = 'force-dynamic';
 ## Follow Button 
 * [Multiple mutations in a transaction](https://www.sanity.io/docs/php-client#multiple-mutations-in-a-transaction) 사용
     * 사용이유: follow버튼을 누르는 순간 다수의 사용자(user와 해당 follow한 사용자)의 데이터를 바꿔야 하기 때문
+* useMe hook을 전달받으면 toggleFollow라는 함수를 전달 받을 수 있도록 추가
+* 

@@ -130,10 +130,10 @@ export async function unfollow(myId: string, targetId: string) {
     return client
         .transaction() //
         .patch(myId, (user) => 
-            user.unset([`following[_ref]=="${targetId}"`])
+            user.unset([`following[_ref=="${targetId}"]`])
         )
         .patch(targetId, (user) => 
-            user.unset([`followers[_ref]=="${myId}"`])
+            user.unset([`followers[_ref=="${myId}"]`])
         )
         .commit({autoGenerateArrayKeys: true});
 }
