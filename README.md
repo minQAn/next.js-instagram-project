@@ -160,3 +160,11 @@ export const dynamic = 'force-dynamic';
     * 원인: like를 누르면 /api/posts 라는 것을 업데이트하는데 그럼 Home에 있는 것은 전체적으로 업데이트가 되겠지만 PostGrid에서 사용하는 api key는 /api/users/${username}/${query}로 서로 다르기 때문
     * 이를 해결하기 위해 cacheKey를 Actionbar에 있는 setLike에  전달해야하는데 Props Drilling이 지나치게 발생하기 때문에 Context를 사용한다
     * -> UserPosts에 있는 PostGrid를 CacheKeysContext로 묶어서 키를 다르게 관리
+
+
+## NewPost
+* Sanity에서 이미지를 올릴 때 [Assets](https://www.sanity.io/docs/assets) 사용  
+    * api안에서 사용하는 핸들러에서는 client.assets.upload 사용이 불가능하다고 하여 수동적으로 post요청을 함
+* handleDrag, handleDragOver, handleDrop으로 이미지 드래그&드랍 이벤트 처리
+* handleChange로 클릭해서 파일 이미지 선택
+

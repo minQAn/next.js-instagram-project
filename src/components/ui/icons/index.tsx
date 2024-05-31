@@ -10,3 +10,4 @@ export { default as SmileIcon } from './SmileIcon';
 export { default as CgClose } from './CloseIcon';
 export { default as HeartFillIcon } from './HeartFillIcon';
 export { default as BookmarkFillIcon } from './BookmarkFillIcon';
+export { default as FaPhotoVideo } from './FilesIcon';
