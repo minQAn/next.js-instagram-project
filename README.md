@@ -167,4 +167,12 @@ export const dynamic = 'force-dynamic';
     * api안에서 사용하는 핸들러에서는 client.assets.upload 사용이 불가능하다고 하여 수동적으로 post요청을 함
 * handleDrag, handleDragOver, handleDrop으로 이미지 드래그&드랍 이벤트 처리
 * handleChange로 클릭해서 파일 이미지 선택
-
+* label에 이미지가 드래그 될 때 자식요소들까지 버블링됨
+    ```tsx
+    // pointer-events-none을 사용하여 해결
+    {dragging && <div className='absolute inset-0 z-10 bg-sky-500/20 pointer-events-none'></div>}
+    ```
+* ```tsx
+    const textRef = useRef<HTMLTextAreaElement>(null); // textarea에서 onChange로 변경하면 변경할때마다 리렌더링되어 깜빡이게 됨으로 방지하기 위해 사용
+  ```
+* 

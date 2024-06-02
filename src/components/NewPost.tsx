@@ -4,8 +4,10 @@ import { AuthUser } from '@/model/user';
 import PostUserAvatar from './PostUserAvatar';
 import FilesIcon from './ui/icons/FilesIcon';
 import Button from './ui/buttons/Button';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import Image from 'next/image';
+import PuffSpinner from './ui/PuffSpinner';
+import { useRouter } from 'next/navigation';
 
 type Props = {
     user: AuthUser;
@@ -14,6 +16,11 @@ type Props = {
 export default function NewPost({ user: { username, image } }: Props){
     const [dragging, setDragging] = useState(false);
     const [file, setFile] = useState<File>(); // for image File
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string>();
+    const router = useRouter();
+
+    const textRef = useRef<HTMLTextAreaElement>(null); // textarea에서 onChange로 변경하면 변경할때마다 리렌더링되어 깜빡이게 됨으로 방지하기 위해 사용
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();         
@@ -41,12 +48,40 @@ export default function NewPost({ user: { username, image } }: Props){
         if(files && files[0]) {
             setFile(files[0]);            
         }
-    }
+    };
+    const handleSubmit = (e: FormEvent) => {
+        e.preventDefault();
+        if(!file) return;
+
+        setLoading(true);
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('text', textRef.current?.value ?? '');
+
+        fetch('/api/posts/', { method: 'POST', body: formData }) //
+            .then(res => { 
+                if(!res.ok) { // 파일 업데이트가 실패한한 경우.. 
+                    setError(`${res.status} ${res.statusText}`);
+                    return;
+                }
+                router.push('/');
+            })
+            .catch(err => setError(err.toString()))
+            .finally(() => setLoading(false));
+    };
 
     return (
         <section className='w-full max-w-xl flex flex-col items-center mt-6'>
+            {loading && (
+                <div className='absolute inset-0 z-20 text-center pt-[30%] bg-sky-500/20'>
+                    <PuffSpinner />
+                </div>
+            )}
+            {true && (
+                <p className='w-full bg-red-100 text-red-500 text-center p-4 mb-4 font-bold'>testsdf</p>
+            )}
             <PostUserAvatar username={username} image={image ?? ''} />
-            <form className='w-full flex flex-col mt-2'>
+            <form className='w-full flex flex-col mt-2' onSubmit={handleSubmit}>
                 <input 
                     className='hidden' 
                     name='input' 
@@ -94,6 +129,7 @@ export default function NewPost({ user: { username, image } }: Props){
                     required 
                     rows={10} 
                     placeholder={'Write a caption'} 
+                    ref={textRef}
                 />
                 <Button text='Publish' onClick={() => {}} />
             </form>
