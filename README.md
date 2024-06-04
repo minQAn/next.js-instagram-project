@@ -1,9 +1,9 @@
 b## Navbar
 
-### Sanity 사용
+# Sanity 사용
 Sanity는 headless CMS(콘텐츠 관리 시스템)로, 콘텐츠를 생성, 관리, 배포하기 위한 도구이다. Sanity는 데이터를 구조화하고 관리할 수 있는 강력한 툴셋을 제공하며, 웹 애플리케이션에서 콘텐츠를 효과적으로 관리하고 사용하기 위한 API를 제공한다.
 
-### NextAuth  사용
+# NextAuth  사용
 NextAuth는 인증 및 인가를 처리하기 위한 라이브러리로, 웹 애플리케이션에서 사용자를 인증하고 권한을 부여하는 데 사용된다. 다양한 인증 프로바이더(예: Google, Facebook, GitHub 등)와 함께 작동하여 사용자의 로그인 및 세션 관리를 간편하게 처리할 수 있다.
 
 > 두 기술을 함께 사용. 
@@ -23,7 +23,7 @@ Sanity를 사용하여 콘텐츠를 관리하는 웹 애플리케이션을 개�
 흐름도
 Sanity Studio ↔️ Content Lake(Sanity) ↔️ Server(Backend with Next.js) ↔️ Frontend
 
-# GET part 
+# ⬇️ GET part 
 
 ## Sidebar 에서는 스타일링 함수
 Navar에있는 Avatar Component 재사용
@@ -103,7 +103,7 @@ export const dynamic = 'force-dynamic';
 ```
 
 ---
-# POST part
+# ⬆️ POST part
 
 ## [SWR advanced understaning](https://swr.vercel.app/docs/advanced/understanding) (for better UX)
 * SWR뜻(Stale While Revalidate): stale된 데이터를 리벨리데이션 하는 동안에 사용한다.
@@ -184,5 +184,7 @@ export const dynamic = 'force-dynamic';
         // Blob이란: Binary Large Object(blob)은 임의 크기의 데이터 모음입니다. blob은 지정된 형식을 따르거나 관련된 메타데이터를 가질 필요가 없습니다. 이들은 일련의 바이트이며 각 바이트는 8비트(1 또는 0, 따라서 "바이너리" 설명자)로 구성됩니다.
         // 출처: https://www.cloudflare.com/ko-kr/learning/cloud/what-is-blob-storage/
     ```
-* [upload 참고](https://www.sanity.io/docs/http-api-assets)
-* 
+* [asset의 upload 참고](https://www.sanity.io/docs/http-api-assets)하여 이미지 업로드 구현
+
+# Refactorying
+* 어떻게하면 api에서 각각의 router들이 중복적인 것(ex: 유저 유효성 검사)을 하지 않고 각각의 핵심로직에 집중할 수 있을까하여 개선함
