@@ -1,5 +1,5 @@
 import { SimplePost } from '@/model/post';
-import { client, urlFor } from './sanity';
+import { assetsURL, client, urlFor } from './sanity';
 
 // GROQ 사용
 // post.author.username -> post.username으로 가능하게 하기 위한 작업
@@ -19,7 +19,7 @@ const simplePostProjection = `
 export async function getFollowingPostsOf(username: string) {
     return client.fetch(
         `*[_type == "post" && author->username == "${username}"
-            || author._ref in *[_type == "user" && username == "${username}"].following[]._ref]
+            || author._ref in *[_type=="user" && username == "${username}"].following[]._ref]
             | order(_createdAt desc){${simplePostProjection}}
         `,
         // {},
@@ -59,7 +59,12 @@ export async function getPostsOf(username: string) {
         | order(_createdAt desc){
             ${simplePostProjection}
         }
-    `).then(mapPosts); // posts => mapPosts(posts)
+    `, 
+    {},
+    {
+        cache: 'no-cache' // no cache를 해야 실시간 업데이트됨!!!
+    }
+    ).then(mapPosts); // posts => mapPosts(posts)
 }
 
 // Posts에 누가 좋아요를 눌렀는지 정보를 가져오기 위함
@@ -137,3 +142,58 @@ export async function addComment(postId: string, userId: string, comment: string
         ])
         .commit({autoGenerateArrayKeys: true});  // Perform the patch and return a promise. | authoGenerateArrayKeys 키를 자동으로 생성      
 }
+
+// to cretae New Post
+export async function createPost(userId: string, text: string, file: Blob) {
+    return client.assets //
+        .upload('image', file)
+        .then((result) => {
+            return client.create({
+                _type: 'post',
+                author: { _ref: userId },
+                photo: { asset: { _ref: result._id }},
+                comments: [{
+                    comment: text,
+                    author: {
+                        _ref: userId,
+                        _type: 'reference'
+                    },
+                }],
+                likes: [],
+            }, { autoGenerateArrayKeys: true });
+        });
+}
+
+
+
+// 구버전: to create New Post 
+// https://www.sanity.io/docs/http-api-assets
+/*
+export async function createPost(userId: string, text: string, file: Blob) {
+    console.log(userId, text, file);
+    return fetch(assetsURL, {
+        method: 'POST',
+        headers: {
+            'content-type': file.type,
+            authorization: `Bearer ${process.env.SANITY_SECRET_TOKEN}`,            
+        },
+        body: file,
+    }).then((res) => res.json())
+    .then(result => {
+        return client.create({
+            _type: 'post',
+            author: {_ref: userId},
+            photo: {asset: {_ref: result.document._id}},
+            comments: [{
+                comment: text,
+                author: {
+                    _ref: userId, 
+                    _type: 'reference'
+                }
+            }],
+            likes: [],            
+        }, { autoGenerateArrayKeys: true });
+    });
+}
+*/
+

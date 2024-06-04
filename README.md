@@ -175,4 +175,14 @@ export const dynamic = 'force-dynamic';
 * ```tsx
     const textRef = useRef<HTMLTextAreaElement>(null); // textarea에서 onChange로 변경하면 변경할때마다 리렌더링되어 깜빡이게 됨으로 방지하기 위해 사용
   ```
+* /api/posts 의 route.ts에서 NewPost에서 POST요청한 데이터를 체크
+    ```tsx
+        const form = await req.formData();
+        const text = form.get('text')?.toString();
+        const file = form.get('file') as Blob; // Blob 타입
+
+        // Blob이란: Binary Large Object(blob)은 임의 크기의 데이터 모음입니다. blob은 지정된 형식을 따르거나 관련된 메타데이터를 가질 필요가 없습니다. 이들은 일련의 바이트이며 각 바이트는 8비트(1 또는 0, 따라서 "바이너리" 설명자)로 구성됩니다.
+        // 출처: https://www.cloudflare.com/ko-kr/learning/cloud/what-is-blob-storage/
+    ```
+* [upload 참고](https://www.sanity.io/docs/http-api-assets)
 * 

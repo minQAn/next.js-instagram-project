@@ -73,11 +73,11 @@ export default function NewPost({ user: { username, image } }: Props){
     return (
         <section className='w-full max-w-xl flex flex-col items-center mt-6'>
             {loading && (
-                <div className='absolute inset-0 z-20 text-center pt-[30%] bg-sky-500/20'>
-                    <PuffSpinner />
+                <div className='absolute inset-0 z-50 flex justify-center pt-[30%] bg-sky-500/30'>
+                    <PuffSpinner color='red' />
                 </div>
             )}
-            {true && (
+            {error && (
                 <p className='w-full bg-red-100 text-red-500 text-center p-4 mb-4 font-bold'>testsdf</p>
             )}
             <PostUserAvatar username={username} image={image ?? ''} />

@@ -20,3 +20,7 @@ export function urlFor(source: SanityImageSource) {
     .width(800)
     .url();
 }
+
+// assets upload (https://www.sanity.io/docs/http-api-assets)
+// 형식: myProjectId.api.sanity.io/v2021-06-07/assets/images/myDataset
+export const assetsURL = `https://${process.env.SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/assets/images/${process.env.SANITY_DATASET}`

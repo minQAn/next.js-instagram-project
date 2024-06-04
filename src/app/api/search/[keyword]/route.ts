@@ -6,8 +6,8 @@ type Context = {
 }
 export async function GET(req: NextRequest, context: Context) {
     // nextUrl: https://nextjs.org/docs/app/api-reference/functions/next-request#nexturl
-    const keyword = req.nextUrl.searchParams.get('keyword');
+    // const keyword = req.nextUrl.searchParams.get('keyword');
 
-    return searchUsers(keyword) //
+    return searchUsers(context.params.keyword) //
         .then(data => NextResponse.json(data));
 }
