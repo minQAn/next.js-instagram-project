@@ -21,7 +21,7 @@ export default function UserSearch(){
         e.preventDefault();        
     }
 
-    console.log(users);
+    // console.log(users);
 
     return (
         <section className='w-full max-w-2xl my-4 flex flex-col items-center'>

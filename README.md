@@ -188,3 +188,27 @@ export const dynamic = 'force-dynamic';
 
 # Refactorying
 * 어떻게하면 api에서 각각의 router들이 중복적인 것(ex: 유저 유효성 검사)을 하지 않고 각각의 핵심로직에 집중할 수 있을까하여 개선함
+    * withSessionUser callback 함수로 분리
+    ```tsx
+            export async function withSessionUser(handler: (user: AuthUser) => Promise<Response>): Promise<Response> {
+            const session = await getServerSession(authOptions);
+            const user = session?.user;
+
+            if(!user) {
+                return new Response('Authentication Error', {status: 401});        
+            }
+
+            // 사용자가 있다면
+            return handler(user);
+        }
+    ```
+* bookmark의 경우는 boolean 타입이라 !bookmark로 유효성 검사를 하면 안됨
+    * 만약 명시적으로 nullable로 작성했거나 undefined를 함께 검사하고 싶다면 bookmark == null 로 검사하면 됨 
+
+# [Middleware](https://next-auth.js.org/configuration/nextjs)
+* src 폴더에 middleware.ts 파일을 만들면 next.js가 자동으로 실행 해줌
+* middleware는 페이지에서만 동작하지만 여기서는 api에서도 동작하길 원하여 가능하게 만듬
+* 미들웨어는 중재자 같은 역할
+* 미들웨어는 Edge환경에서 동작할 수 있음
+* 장점: 서버요청해서 확인해서 가져오는 동작을 줄여줄 수 있음
+* search나 users의 사용자 페이지는 로그인 하지 않아도 사용할 수 있음으로 제외
