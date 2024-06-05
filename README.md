@@ -218,4 +218,10 @@ export const dynamic = 'force-dynamic';
     * Sanity Studio가 외부에 있는 것이 아니라 Next app에 함께 포함되어 있음으로 build가 될 때 sanity-studio 폴더는 타입스크립트 컴파일이 되지않도록 설정해줘야함 
 * 배포 시 환경변수 env.local의 NEXTAUTH_URL key는 추가 안함
     * NextAuth가 Vercel에 배포하면 자동으로 도메인 url을 읽어와서 세팅해줌
-* 정정: NEXTAUTH_URL 값을 Vercel도메인 주소로 환경변수 추가해봄
+* 시도1: 정정: NEXTAUTH_URL 값을 Vercel도메인 주소로 환경변수 추가해봄
+* 시도2: package.json에 "homepage": "." 추가, index.html의 head에 
+    ```html
+    <base href='/' />
+    ``` 설정 
+    [참고 사이트](https://velog.io/@ehhdrud/Vercel-%EB%B0%B0%ED%8F%AC-%EC%8B%9C-%EB%B9%8C%EB%93%9C-%EA%B4%80%EB%A0%A8-%EB%AC%B8%EC%A0%9C)
+* 시도3: google cloud에서 credential에 authorized redirect URIs경로를 https://도메인주소/api/auth/callback/google 이라고 설정해줌(아마도 구글 로그인 관습인듯)

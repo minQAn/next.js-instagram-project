@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     default: 'Instagram',
     template: 'Instagram | %s',
   },
-  description: 'Instagram Photos',
+  description: 'Instagram Photos',  
 };
 
 export default function RootLayout({
