@@ -218,3 +218,4 @@ export const dynamic = 'force-dynamic';
     * Sanity Studio가 외부에 있는 것이 아니라 Next app에 함께 포함되어 있음으로 build가 될 때 sanity-studio 폴더는 타입스크립트 컴파일이 되지않도록 설정해줘야함 
 * 배포 시 환경변수 env.local의 NEXTAUTH_URL key는 추가 안함
     * NextAuth가 Vercel에 배포하면 자동으로 도메인 url을 읽어와서 세팅해줌
+* 정정: NEXTAUTH_URL 값을 Vercel도메인 주소로 환경변수 추가해봄
