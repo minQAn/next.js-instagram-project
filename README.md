@@ -1,4 +1,4 @@
-b## Navbar
+### [Demo 버전 링크](https://nextjs-instagram-project-minqs-projects-4aacc337.vercel.app)
 
 # Sanity 사용
 Sanity는 headless CMS(콘텐츠 관리 시스템)로, 콘텐츠를 생성, 관리, 배포하기 위한 도구이다. Sanity는 데이터를 구조화하고 관리할 수 있는 강력한 툴셋을 제공하며, 웹 애플리케이션에서 콘텐츠를 효과적으로 관리하고 사용하기 위한 API를 제공한다.
