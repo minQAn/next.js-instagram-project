@@ -225,3 +225,8 @@ export const dynamic = 'force-dynamic';
     ``` 설정 
     [참고 사이트](https://velog.io/@ehhdrud/Vercel-%EB%B0%B0%ED%8F%AC-%EC%8B%9C-%EB%B9%8C%EB%93%9C-%EA%B4%80%EB%A0%A8-%EB%AC%B8%EC%A0%9C)
 * 시도3(해결): google cloud에서 credential에 authorized redirect URIs경로를 https://도메인주소/api/auth/callback/google 이라고 설정해줌(아마도 구글 로그인 관습인듯)
+
+# 성능개선
+* chrome extension Lighthouse로 페이지별 성능 검사
+* aria-label을 추가하여 accessibility(접근성) 향상 
+* 색상 변경하여 대비를 향상시켜 접근성 향상

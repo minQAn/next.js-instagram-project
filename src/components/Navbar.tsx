@@ -13,16 +13,19 @@ const menu = [
         href: '/',
         icon: <HomeIcon />,
         clickedIcon: <HomeFillIcon />,
+        title: 'Home',
     },
     {
         href: '/search',
         icon: <SearchIcon />,
         clickedIcon: <SearchFillIcon />,
+        title: 'Search users',
     },
     {
         href: '/new',
         icon: <NewIcon />,
         clickedIcon: <NewFillIcon />,
+        title: 'New Post',
     },
 ]
 
@@ -32,14 +35,14 @@ export default function Navbar(){
     const user = session?.user; // user 정보. name, email, username, avatar image, expires..
 
     return <div className='flex justify-between items-center px-6'>
-        <Link href='/'>
+        <Link href='/' aria-label='Home'>
             <h1 className='text-3xl font-bold'>Instagram</h1>
         </Link>
         <nav>
             <ul className='flex gap-4 items-center p-4'>
                 {
                     menu.map(item => <li key={item.href}>
-                        <Link href={item.href}>
+                        <Link href={item.href} aria-label={item.title}>
                             {pathName === item.href ? item.clickedIcon : item.icon}
                         </Link>
                     </li>)
