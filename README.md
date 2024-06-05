@@ -212,3 +212,9 @@ export const dynamic = 'force-dynamic';
 * 미들웨어는 Edge환경에서 동작할 수 있음
 * 장점: 서버요청해서 확인해서 가져오는 동작을 줄여줄 수 있음
 * search나 users의 사용자 페이지는 로그인 하지 않아도 사용할 수 있음으로 제외
+
+# 배포하기
+* tsconfig.json의 exclude에 sanity-studio를 꼭 추가하여야 함
+    * Sanity Studio가 외부에 있는 것이 아니라 Next app에 함께 포함되어 있음으로 build가 될 때 sanity-studio 폴더는 타입스크립트 컴파일이 되지않도록 설정해줘야함 
+* 배포 시 환경변수 env.local의 NEXTAUTH_URL key는 추가 안함
+    * NextAuth가 Vercel에 배포하면 자동으로 도메인 url을 읽어와서 세팅해줌
